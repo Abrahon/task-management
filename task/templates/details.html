@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<div class="m-5  flex items-center justify-center">
+   
+<div class="max-w-sm bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700 ">
+    <a href="#">
+        <img src="{{single_task.image.url}}" alt="">
+    </a>
+    <div class="p-5">
+        <a href="#">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{single_task.title}}</h5>
+        </a>
+        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{single_task.description}}</p>
+        
+        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Start time: {{single_task.start_time}}</p>
+        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Update time: {{single_task.modify_time}}</p>
+        <p class="mb-3 font-normal text-gray-700 bg-red-700 dark:text-gray-400">Due Date: {{single_task.due_date}}</p>
+        
+        <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            {{single_task.status}}
+        </a>
+    </div>
+</div>
+
+</div>
+
+<!-- {{task.title}} -->
+
+  
+{% endblock content %}
