@@ -9,6 +9,7 @@ def hostel(request):
     context = {'data': data}
     return render(request, 'show_task.html', context)
 
+@login_required(login_url='login')
 def add_task(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
@@ -17,14 +18,13 @@ def add_task(request):
                 task.save()
                 print(task.cleaned_data)
                 return redirect('show_task')
-                
-        
         else:
             task = TaskStoreForm()    
         return render(request,'add_task.html',{'form':task})
     else:
         return redirect('signup')
 
+@login_required(login_url='login')
 def show_task(request):
     if request.user.is_authenticated:
         task = TaskStoreModel.objects.all().order_by('priority')
@@ -68,7 +68,6 @@ def search(request):
     if keyword:
         data = TaskStoreModel.objects.order_by('-created_date').filter(Q(title__icontains=keyword) | Q(priority__icontains=keyword ))
         print(data)
-        
         data_count = data.count()
         context = {
             'data' :data,

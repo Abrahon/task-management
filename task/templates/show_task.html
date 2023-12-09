@@ -6,24 +6,7 @@
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
        
         <div class="flex items-center justify-around py-4 bg-white dark:bg-gray-800">
-            <form action = "{% url 'find' %}" method="GET">
-                
-                <div class="input-group w-100">
-                  <input
-                    type="text"
-                    name="keyword"
-                    class="form-control"
-                    style="width: 100%"
-                    placeholder="Search"
-                    
-                  />
-                  
-                  <div class="input-group-append">
-                    <button class="btn btn-primary" type="submit">
-                    </button>
-                  </div>
-                </div>
-              </form>
+            
               <span class="mr-md-auto bg-green-700"><b>Total Task: {{data|length}}</b>  </span>
         </div>
         
@@ -69,16 +52,7 @@
                     {{item.title}}
                 </td>
                 <td class="px-6 py-4">
-                   {% if not item.status == 'incomplete' %}
-                   
-                  
-                    <button type="button" class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-none text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900">
-                        <a href="{% url 'status' item.id %}">completed</a></button>
-                     {% else %}
-                     <button type="button" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-none text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
-                        <a href="{% url 'status' item.id %}">incomplete</a></button>
-                        
-                   {% endif %}
+                   {{item.status}}
                 </td>
                 <td class="px-6 py-4">
                     {{item.priority}}

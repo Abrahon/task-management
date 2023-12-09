@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from .forms import RegisterForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm,SetPasswordForm
 from django.contrib.auth import authenticate,login,logout,update_session_auth_hash
 
@@ -61,19 +62,51 @@ def user_logout(request):
     logout(request)
     return redirect('login')
 
+# def pass_change(request):
+#     if request.method == 'POST':
+#         form = PasswordChangeForm(request.user, request.POST)
+#         if form.is_valid():
+#             form.save()
+#             update_session_auth_hash(request.user)
+#             return redirect('profile')
+#         # else:
+#             # messages.success(request, 'Your password was successfully updated!')
+#             # return redirect('change_password')
+#     else:
+#         form = PasswordChangeForm(request.user)
+#         return render(request, 'pass_change.html', {'form': form})
+    
+# def pass_change(request):
+#     if request.method == 'POST':
+#         form = PasswordChangeForm(request.user, request.POST)
+#         if form.is_valid():
+#             form.save()
+#             update_session_auth_hash(request.user)
+#             return redirect('profile')
+#         else:
+#             messages.error(request, 'Please correct the errors below.')
+#             return redirect('login')
+#     else:
+#         form = PasswordChangeForm(request.user)
+#         return render(request, 'pass_change.html', {'form': form})
+
+@login_required
 def pass_change(request):
     if request.method == 'POST':
-        form = PasswordChangeForm(request.user, request.POST)
+        form = PasswordChangeForm(data=request.POST, user=request.user)
+
         if form.is_valid():
             form.save()
-            update_session_auth_hash(request.user)
+            update_session_auth_hash(request, request.user)
             return redirect('profile')
-        # else:
-            # messages.success(request, 'Your password was successfully updated!')
-            # return redirect('change_password')
+        else:
+            return redirect('pass_change')
     else:
-        form = PasswordChangeForm(request.user)
-        
-    return render(request, 'pass_change.html', {'form': form})
+        form = PasswordChangeForm(user=request.user)
+
+        args = {'form': form}
+        return render(request, 'pass_change.html', args)
+
+
     
     

@@ -5,8 +5,10 @@ from django.utils import timezone
 class TaskStoreModel(models.Model):
     
     STATUS = [
-        ('complete','complete'),
-        ('incomplete','incomplete'),
+        ('OPEN','OPEN'),
+        ('WORKING','WORKING'),
+        ('DONE','DONE'),
+        ('OVERDUE','OVERDUE'),
     ]
     
     PRIORITY = [
@@ -16,9 +18,9 @@ class TaskStoreModel(models.Model):
     ]
     
     id = models.IntegerField(primary_key=True)
-    title = models.CharField(max_length=30)
-    description = models.CharField(max_length=110)
-    status = models.CharField(max_length=10, choices=STATUS)
+    title = models.CharField(max_length=100)
+    description = models.CharField(max_length=1000)
+    status = models.CharField(max_length=10, choices=STATUS, default='OPEN')
     priority = models.CharField(max_length=10, choices=PRIORITY)
     due_date = models.DateTimeField(default=timezone.now)
     image = models.ImageField(upload_to='images/')
